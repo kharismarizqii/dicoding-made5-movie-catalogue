@@ -5,6 +5,13 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <permission
+        android:name="com.kharismarizqii.moviecatalogueuiux.READ_DATABASE"
+        android:protectionLevel="normal" />
+    <permission
+        android:name="com.kharismarizqii.moviecatalogueuiux.WRITE_DATABASE"
+        android:protectionLevel="normal" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -14,19 +21,50 @@
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".DetailTVShowFavoriteActivity"
+        <activity android:name=".SettingsPreferenceActivity"></activity>
+
+        <receiver
+            android:name=".receiver.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true" />
+
+        <provider
+            android:name=".provider.MovieCatalogueContentProvider"
+            android:authorities="com.kharismarizqii.moviecatalogueuiux"
+            android:enabled="true"
+            android:exported="true"
+            android:readPermission="com.kharismarizqii.moviecatalogueuiux.READ_DATABASE"
+            android:writePermission="com.kharismarizqii.moviecatalogueuiux.WRITE_DATABASE" />
+
+        <service
+            android:name=".widget.StackWidgetService"
+            android:permission="android.permission.BIND_REMOTEVIEWS" />
+
+        <receiver android:name=".widget.ImageBannerWidget">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.appwidget.provider"
+                android:resource="@xml/image_banner_widget_info" />
+        </receiver>
+
+        <activity
+            android:name=".DetailTVShowFavoriteActivity"
             android:label="@string/detail_tv"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
-        <activity android:name=".DetailMovieFavoriteActivity"
+        <activity
+            android:name=".DetailMovieFavoriteActivity"
             android:label="@string/detail_movie"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".DetailTVShowActivity"
@@ -34,7 +72,7 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".DetailMovieActivity"
@@ -42,11 +80,12 @@
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"/>
+                android:value=".MainActivity" />
         </activity>
         <activity
             android:name=".MainActivity"
-            android:launchMode="singleTop">
+            android:launchMode="singleTop"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

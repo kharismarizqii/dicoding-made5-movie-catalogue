@@ -20,5 +20,13 @@
     <string name="toast_failedmovie">Film ini sudah jadi favorit anda</string>
     <string name="remove">Hapus</string>
     <string name="toast_success">Ditambahkan ke favorit</string>
+    <string name="search">Cari</string>
+    <string name="search_hint">Cari film</string>
+    <string name="content_text">Ayo lihat daftar film terbaru!</string>
+    <string name="settings">Pengaturan</string>
+    <string name="set_remider">Set Remider</string>
+    <string name="off">OFF</string>
+    <string name="on">ON</string>
+
 
 </resources>

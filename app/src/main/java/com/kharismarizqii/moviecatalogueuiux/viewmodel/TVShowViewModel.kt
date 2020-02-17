@@ -37,11 +37,19 @@ class TVShowViewModel(application: Application) : AndroidViewModel(application){
         return currentLang
     }
 
-    internal fun setTVShows(){
+    internal fun setTVShows(type : Int, query: String){
         Log.d("test masuk", "setTVShows: ")
         listTVShowDB = ArrayList<TVShowDB>()
         val lang = getLang()
-        val url = "https://api.themoviedb.org/3/tv/popular?language=$lang&api_key=${TVShowFragment.APP_ID}"
+        var url = ""
+        when{
+            type == 1 ->{
+                url = "https://api.themoviedb.org/3/tv/popular?language=$lang&api_key=${TVShowFragment.APP_ID}"
+            }
+            type == 2 -> {
+                url = "https://api.themoviedb.org/3/search/tv?api_key=${TVShowFragment.APP_ID}&language=$lang&query=$query"
+            }
+        }
         Log.d("URL", "setTVShows: $url")
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener {response ->
             try {

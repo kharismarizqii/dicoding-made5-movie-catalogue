@@ -36,11 +36,21 @@ class MovieViewModel(application: Application) : AndroidViewModel(application) {
         return currentLang
     }
 
-    internal fun setMovies(){
-        Log.d(TAG, "getMovie: Mulai...")
+    internal fun setMovies(type : Int, query: String){
+        val current = type
+        Log.d(TAG, "getMovie: Mulai... $current")
         listMovieDB = ArrayList<MovieDB>()
         val lang = getLang()
-        val url = "https://api.themoviedb.org/3/movie/now_playing?language=$lang&api_key=${MovieFragment.APP_ID}"
+        var url = ""
+        when{
+            current == 1 ->{
+                url = "https://api.themoviedb.org/3/movie/now_playing?language=$lang&api_key=${MovieFragment.APP_ID}"
+            }
+            current == 2 ->{
+                url = "https://api.themoviedb.org/3/search/movie?api_key=${MovieFragment.APP_ID}&language=$lang&query=$query"
+            }
+        }
+        Log.d("URL", "url: $url")
         val jsonObjectRequest = JsonObjectRequest(Request.Method.GET, url, null, Response.Listener{ response ->
             try {
                 val jsonArray: JSONArray = response.getJSONArray("results")
